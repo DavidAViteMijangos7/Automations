@@ -2,8 +2,8 @@
 
 from typer.testing import CliRunner
 
-from package_name import __version__
-from package_name.__main__ import app
+from xlsreport import __version__
+from xlsreport.__main__ import app
 
 runner = CliRunner()
 

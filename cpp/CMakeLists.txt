@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(package_name LANGUAGES CXX)
+project(triage LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,17 +20,17 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 endif()
 
 # ---- Library ----
-add_library(package_name_lib
+add_library(triage_lib
   src/example.cpp
 )
-target_include_directories(package_name_lib PUBLIC
+target_include_directories(triage_lib PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_link_libraries(package_name_lib PRIVATE project_warnings)
+target_link_libraries(triage_lib PRIVATE project_warnings)
 
 # ---- Executable ----
-add_executable(package_name src/main.cpp)
-target_link_libraries(package_name PRIVATE package_name_lib project_warnings)
+add_executable(triage src/main.cpp)
+target_link_libraries(triage PRIVATE triage_lib project_warnings)
 
 # ---- Tests ----
 if(BUILD_TESTS)
@@ -46,7 +46,7 @@ if(BUILD_TESTS)
   enable_testing()
   add_executable(unit_tests tests/test_example.cpp)
   target_link_libraries(unit_tests PRIVATE
-    package_name_lib
+    triage_lib
     GTest::gtest_main
     project_warnings
   )

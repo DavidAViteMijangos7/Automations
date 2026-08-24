@@ -32,3 +32,12 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# cpp/
+build/
+build-*/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json

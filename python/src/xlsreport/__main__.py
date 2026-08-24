@@ -2,7 +2,12 @@
 
 import typer
 
-app = typer.Typer(help="package_name — one-line description.")
+app = typer.Typer(help="xlsreport — one-line description.")
+
+
+@app.callback()
+def callback() -> None:
+    """xlsreport — one-line description."""
 
 
 @app.command()

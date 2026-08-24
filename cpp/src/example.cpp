@@ -1,9 +1,9 @@
-#include "package_name/example.hpp"
+#include "triage/example.hpp"
 
-namespace package_name {
+namespace triage {
 
 int add(int a, int b) {
   return a + b;
 }
 
-}  // namespace package_name
+}  // namespace triage
