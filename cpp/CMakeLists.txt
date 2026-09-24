@@ -21,7 +21,8 @@ endif()
 
 # ---- Library ----
 add_library(triage_lib
-  src/example.cpp
+  src/scan.cpp
+  src/sha256.cpp
 )
 target_include_directories(triage_lib PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -44,7 +45,10 @@ if(BUILD_TESTS)
   FetchContent_MakeAvailable(googletest)
 
   enable_testing()
-  add_executable(unit_tests tests/test_example.cpp)
+  add_executable(unit_tests
+    tests/test_scan.cpp
+    tests/test_sha256.cpp
+  )
   target_link_libraries(unit_tests PRIVATE
     triage_lib
     GTest::gtest_main

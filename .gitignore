@@ -41,3 +41,7 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 compile_commands.json
+
+# benchmarks/ — synthetic tree, never committed
+benchmarks/tree/
+benchmarks/tree_manifest.json

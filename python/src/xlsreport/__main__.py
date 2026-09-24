@@ -1,19 +1,39 @@
-"""CLI entrypoint. Replace with your actual tool's logic."""
+"""CLI entrypoint for xlsreport."""
+
+from __future__ import annotations
+
+import json as jsonlib
 
 import typer
 
-app = typer.Typer(help="xlsreport — one-line description.")
+from xlsreport.scan import scan as run_scan
+
+app = typer.Typer(help="xlsreport — find exact duplicate files in a directory tree.")
 
 
 @app.callback()
 def callback() -> None:
-    """xlsreport — one-line description."""
+    """xlsreport — find exact duplicate files in a directory tree."""
 
 
 @app.command()
-def hello(name: str = "world") -> None:
-    """Example command. Replace me."""
-    typer.echo(f"Hello, {name}!")
+def scan(
+    root: str,
+    json: bool = typer.Option(False, "--json", help="Emit machine-readable JSON."),
+) -> None:
+    """Scan ROOT for exact duplicate files."""
+    result = run_scan(root)
+    if json:
+        typer.echo(jsonlib.dumps(result.as_dict()))
+        return
+    data = result.as_dict()
+    typer.echo(f"files scanned    : {data['total_files']:,}")
+    typer.echo(f"bytes scanned    : {data['total_bytes']:,}")
+    typer.echo(f"distinct contents: {data['distinct_contents']:,}")
+    typer.echo(f"duplicate groups : {data['duplicate_groups']:,}")
+    typer.echo(f"redundant copies : {data['redundant_copies']:,}")
+    typer.echo(f"reclaimable bytes: {data['redundant_bytes']:,}")
+    typer.echo(f"elapsed          : {data['total_seconds']:.3f}s")
 
 
 def main() -> None:
