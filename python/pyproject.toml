@@ -1,8 +1,7 @@
 [project]
-name = "package-name"
+name = "xlsreport"
 version = "0.1.0"
 description = "One-line description of what this tool does."
-readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "David Vite" }]
@@ -17,14 +16,14 @@ dev = [
 ]
 
 [project.scripts]
-package-name = "package_name.__main__:app"
+xlsreport = "xlsreport.__main__:app"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/package_name"]
+packages = ["src/xlsreport"]
 
 [tool.ruff]
 line-length = 100
@@ -49,8 +48,8 @@ indent-style = "space"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --cov=src/package_name --cov-report=term-missing"
+addopts = "-v --cov=src/xlsreport --cov-report=term-missing"
 
 [tool.coverage.run]
-source = ["src/package_name"]
+source = ["src/xlsreport"]
 omit = ["*/tests/*"]

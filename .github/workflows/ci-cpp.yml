@@ -1,10 +1,16 @@
-name: CI
+name: CI (cpp)
 
 on:
   push:
     branches: [main]
+    paths:
+      - "cpp/**"
+      - ".github/workflows/ci-cpp.yml"
   pull_request:
     branches: [main]
+    paths:
+      - "cpp/**"
+      - ".github/workflows/ci-cpp.yml"
 
 jobs:
   build-and-test:
@@ -35,15 +41,15 @@ jobs:
 
       - name: Configure
         run: >
-          cmake -B build
+          cmake -B cpp/build -S cpp
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
           -DBUILD_TESTS=ON
 
       - name: Build
-        run: cmake --build build --parallel
+        run: cmake --build cpp/build --parallel
 
       - name: Test
-        working-directory: build
+        working-directory: cpp/build
         run: ctest --output-on-failure
 
   lint:
@@ -57,13 +63,13 @@ jobs:
 
       - name: Check formatting
         run: |
-          find src include tests -name '*.cpp' -o -name '*.hpp' | \
+          find cpp/src cpp/include cpp/tests -name '*.cpp' -o -name '*.hpp' | \
           xargs clang-format --dry-run --Werror
 
       - name: Configure (for compile_commands.json)
-        run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        run: cmake -B cpp/build -S cpp -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
       - name: Run clang-tidy
         run: |
-          find src include -name '*.cpp' -o -name '*.hpp' | \
-          xargs clang-tidy -p build
+          find cpp/src cpp/include -name '*.cpp' -o -name '*.hpp' | \
+          xargs clang-tidy -p cpp/build
